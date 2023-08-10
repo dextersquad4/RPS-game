@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <script>
+
+    let GameCount = 1;
+    let YourScore = 0;
+    let ComputerScore = 0;
+
+    function GameLimit() {
+      while (GameCount <=5) {
+        GetGameResult(GetPlayerResult(), GetComputerChoice(), YourScore, ComputerScore);
+        GameCount += 1;
+      }
+    }
+
+    function GetComputerChoice() {
+      let Cmpnumber = Math.floor(Math.random() * 3) + 1;
+      return(Cmpnumber);
+    }
+
+    // 1 = Rock, 2 = Paper, 3 = Scissors//
+
+    function GetPlayerResult() {
+        let Continue = true
+        while (Continue == true) {
+          let UserChoice = prompt("Do you want rock, paper, or scissors?", "Rock");
+          let UNUserChoice = UserChoice.toLowerCase();
+          if (UNUserChoice == "rock") {
+            return 1;
+          } else if (UNUserChoice == "paper") {
+            return 2;
+          } else if (UNUserChoice == "scissors"){
+            return 3;
+          } 
+        }
+    }
+
+    function GetGameResult(GetPlayerResult, GetComputerChoice, YourScore, ComputerScore) {
+        if (GetComputerChoice == GetPlayerResult) {
+            console.log('Tie Game')
+            YourScore += 0.5;
+            ComputerScore += 0.5;
+        } else if (GetComputerChoice == GetPlayerResult + 1) {
+            console.log('Computer Won!')
+            ComputerScore += 1;
+        } else if (GetComputerChoice == GetPlayerResult - 2) {
+            console.log('Computer Won!')
+            ComputerScore += 1;
+        } else {
+            console.log('You Won!')
+            YourScore += 1;
+        }
+        console.log(`Your score: ${YourScore}`)
+        console.log(`Computer score: ${ComputerScore}`)
+    }
+    
+  </script>
+</body>
+</html>
