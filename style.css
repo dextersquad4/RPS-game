@@ -11,7 +11,7 @@ body {
     background-color: rgb(106, 178, 226);
 }
 
-
+/*universal info*/
 
 .header {
     display: flex;
@@ -35,7 +35,24 @@ body {
 }
 
 
+/*header*/
 
 .rules {
     align-self: center;
+    font-size: 48px;
+    margin-bottom: 32px;
 }
+
+
+.scores {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 280px;
+
+}
+
+.ur-score, .cmp-score {
+    font-size: 44px;
+}
+
+/* scoreboard/ rules*/
