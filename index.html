@@ -6,13 +6,34 @@
     <title>Document</title>
 </head>
 <body>
+  <div class = "header">
+    <p class = "title">Rock Paper Scissors!</p> 
+    <p class = "author">by: Dean Liang</p>
+  <div class = "rules"> 
+    <h1>First to 3 wins!! There will be no ties!!</h1>
+  </div>
+  <div class = "scores">
+    <h3 class= "ur-score">Your score: </h3>
+    <h3 class = "cmp-score">Computer score: </h3>
+  </div class = "bth-options">
+    <nav class = ur-options>
+      <img src = "IMGS/rock.png" alt = "rock" class = "ur-rock">
+      <img src = "IMGS/paper.png" alt="paper" class="ur-paper">
+      <img src = "IMGS/scissors.png" alt = "scissors" class = "ur-scissors">
+    </nav>
+    <nav class = "cmp-options">
+      <img src = "IMGS/rock.png" alt = "rock" class = "cmp-rock">
+      <img src = "IMGS/paper.png" alt="paper" class="cmp-paper">
+      <img src = "IMGS/scissors.png" alt = "scissors" class = "cmp-scissors">
+    </nav>
+  </div>
   <script>
 
     let GameCount = 1;
     let YourScore = 0;
     let ComputerScore = 0;
 
-    function GameLimit(GameCount, YourScore, ComputerScore) {
+    function GameLimit(GameCount) {
       while (GameCount <=5) {
         GetGameResult(GetPlayerResult(), GetComputerChoice(), YourScore, ComputerScore);
         GameCount += 1;
