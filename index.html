@@ -11,12 +11,12 @@
     <h1 class = "title">Rock Paper Scissors!</h1> 
     <h3 class = "author">by: Dean Liang</h3>
   </div>
-  <h1 class = "rules">First to 3 wins!! There will be no ties!!</h1>
-  <div class = "scores">
+  <h1 class = "rules" id = "rules">First to 3 wins!! There will be no ties!!</h1>
+  <div class = "scores" id = "scores">
     <h3 class= "ur-score">Your score: </h3>
     <h3 class = "cmp-score">Computer score: </h3>
   </div>
-  <div class = "bth-options">
+  <div class = "bth-options" id = "options">
     <nav class = "ur-options">
       <img src = "./IMGS/rock.png" alt = "rock" class = "ur-rock" id = "rock">
       <img src = "./IMGS/paper.png" alt="paper" class="ur-paper" id = "paper">
@@ -31,12 +31,13 @@
   <script>
 
 
-    const buttons = document.querySelectorAll('.ur-options img');
-
+    let GameCount = 0;
     let YourScore = 0;
     let ComputerScore = 0;
     let choiceValue;
 
+    const buttons = document.querySelectorAll('.ur-options img'); 
+    
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
         if (button.id == 'rock') {
@@ -49,25 +50,30 @@
 
       GetGameResult(choiceValue, GetComputerChoice());
       changeScoreCard();
+      gameLimit();
+
+
       })
       
     });
 
 
-  
+    function gameLimit() {
+      while (!(GameCount < 5)) {
+        const rules = document.getElementById('rules');
+        const options = document.getElementById('options');
+        const scores = document.getElementById('scores');
+        if (YourScore > ComputerScore) {
+          options.remove();
+          scores.remove();
+          rules.textContent = "You Win!! Congradulations!!";
+        } else if (ComputerScore > YourScore) {
+          options.remove();
+          scores.remove();
+          rules.textContent = "You Lose!! Congradulations!!";
+        } else break;
+      }
 
-    function GameLimit(GameCount) {
-      while (GameCount <=5) {
-        GetGameResult(GetPlayerResult(), GetComputerChoice(), YourScore, ComputerScore);
-        GameCount += 1;
-      }
-      if (YourScore > ComputerScore) {
-        console.log('You Win!');
-      } else if (ComputerScore > YourScore) {
-        console.log('You Lose!');
-      } else {
-        console.log('Tie Game!');
-      }
     }
     
 
@@ -79,20 +85,17 @@
 
     function GetGameResult(GetPlayerResult, GetComputerChoice) {
         if (GetComputerChoice == GetPlayerResult) {
-            console.log('Tie Game')
             YourScore += 0.5;
             ComputerScore += 0.5;
 
         } else if (GetComputerChoice == GetPlayerResult + 1) {
-            console.log('Computer Won!')
             ComputerScore += 1;
         } else if (GetComputerChoice == GetPlayerResult - 2) {
-            console.log('Computer Won!')
             ComputerScore += 1;
         } else {
-            console.log('You Won!')
             YourScore += 1;
         }
+        GameCount += 1;
     }
 
     function changeScoreCard() {
