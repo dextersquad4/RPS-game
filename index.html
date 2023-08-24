@@ -13,19 +13,19 @@
   </div>
   <h1 class = "rules" id = "rules">First to 3 wins!! There will be no ties!!</h1>
   <div class = "scores" id = "scores">
-    <h3 class= "ur-score">Your score: </h3>
-    <h3 class = "cmp-score">Computer score: </h3>
+    <h3 class= "ur-score" >Your score: </h3>
+    <h3 class = "cmp-score" id = "cmpScore">Computer score: </h3>
   </div>
   <div class = "bth-options" id = "options">
-    <nav class = "ur-options">
+    <nav class = "ur-options" id = "urOptions">
       <img src = "./IMGS/rock.png" alt = "rock" class = "ur-rock" id = "rock">
       <img src = "./IMGS/paper.png" alt="paper" class="ur-paper" id = "paper">
       <img src = "./IMGS/scissor.png" alt = "scissors" class = "ur-scissors" id = "scissors">
     </nav>
-    <nav class = "cmp-options">
-      <img src = "./IMGS/rock.png" alt = "rock" class = "cmp-rock">
-      <img src = "./IMGS/paper.png" alt="paper" class="cmp-paper">
-      <img src = "./IMGS/scissor.png" alt = "scissors" class = "cmp-scissors">
+    <nav class = "cmp-options" id = "cmpOptions">
+      <img src = "./IMGS/rock.png" alt = "rock" class = "cmp-rock" id = "cmpRock">
+      <img src = "./IMGS/paper.png" alt="paper" class="cmp-paper" id = "cmpPaper">
+      <img src = "./IMGS/scissor.png" alt = "scissors" class = "cmp-scissors" id = "cmpScissors">
     </nav>
   </div>
   <script>
@@ -35,12 +35,31 @@
     let YourScore = 0;
     let ComputerScore = 0;
     let choiceValue;
+    let Cmpnumber;
+    let rmvRock1;
+    let rmvRock2;
+    let rmvPaper1;
+    let rmvPaper2;
+    let rmvScissors1;
+    let rmvScissors2;
 
+    const nextGame = document.createElement('button');
+    
+    const urOptions = document.getElementById('urOptions');
+    const cmpOptions = document.getElementById('cmpOptions');
+    const cmpScore = document.getElementById('cmpScore')
     const buttons = document.querySelectorAll('.ur-options img'); 
+    const urRock = document.getElementById('rock');
+    const urPaper = document.getElementById('paper');
+    const urScissors = document.getElementById('scissors');
+    const cRock = document.getElementById('cmpRock');
+    const cPaper = document.getElementById('cmpPaper');
+    const cScissors = document.getElementById('cmpScissors');
+    const scores = document.getElementById('scores');
     
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
-        if (button.id == 'rock') {
+      if (button.id == 'rock') {
         choiceValue = 1;
       } else if (button.id == 'paper') {
         choiceValue = 2;
@@ -51,38 +70,97 @@
       GetGameResult(choiceValue, GetComputerChoice());
       changeScoreCard();
       gameLimit();
-
+      removeOptions();
+      createNextGame();
 
       })
       
     });
 
 
+    nextGame.addEventListener('click', () => {
+      if (choiceValue == 1) {
+        urOptions.append(urPaper);
+        urOptions.append(urScissors);
+      } else if (choiceValue == 2) {
+        urOptions.insertBefore(urRock, urPaper);
+        urOptions.append(urScissors);
+      } else {
+        urOptions.insertBefore(urRock, urScissors);
+        urOptions.insertBefore(urPaper, urScissors);
+      }
+
+      if (Cmpnumber == 1) {
+        cmpOptions.append(cPaper);
+        cmpOptions.append(cScissors);
+      } else if (Cmpnumber == 2) {
+        cmpOptions.insertBefore(cRock, cPaper);
+        cmpOptions.append(cScissors);
+      } else {
+        cmpOptions.insertBefore(cRock, cScissors);
+        cmpOptions.insertBefore(cPaper, cScissors);
+      }
+
+      nextGame.remove();
+    });
+
+
+
+
+
+    function removeOptions() {
+
+      if (choiceValue == 1) {
+        urPaper.remove();
+        urScissors.remove();
+      } else if (choiceValue == 2) {
+        urRock.remove();
+        urScissors.remove();
+      } else {
+        urRock.remove();
+        urPaper.remove();
+      }
+
+      if (Cmpnumber == 1) {
+        cPaper.remove();
+        cScissors.remove();
+      } else if (Cmpnumber == 2) {
+        cRock.remove();
+        cScissors.remove();
+      } else {
+        cRock.remove();
+        cPaper.remove();
+      }
+    }
+
+
+    function createNextGame() {
+      nextGame.textContent = "Next Game?";
+      nextGame.classList.add('play-again');
+      scores.insertBefore(nextGame, cmpScore);
+
+      
+    }
+
     function gameLimit() {
-      while (!(GameCount < 5)) {
+      while (!(GameCount < 5) || (YourScore > 2.5) || (ComputerScore > 2.5)) {
         const rules = document.getElementById('rules');
         const options = document.getElementById('options');
         const scores = document.getElementById('scores');
         if (YourScore > ComputerScore) {
           options.remove();
           scores.remove();
-          rules.textContent = "You Win!! Congradulations!!";
+          rules.textContent = "You Win!! Congratulations!!";
         } else if (ComputerScore > YourScore) {
           options.remove();
           scores.remove();
-          rules.textContent = "You Lose!! Congradulations!!";
+          rules.textContent = "You Lose!! Congratulations!!";
         } else break;
       }
 
     }
-    
-
-    // 1 = Rock, 2 = Paper, 3 = Scissors//
-    
-
-    
-    
-
+  
+  
     function GetGameResult(GetPlayerResult, GetComputerChoice) {
         if (GetComputerChoice == GetPlayerResult) {
             YourScore += 0.5;
@@ -108,7 +186,7 @@
 
 
     function GetComputerChoice() {
-      let Cmpnumber = Math.floor(Math.random() * 3) + 1;
+      Cmpnumber = Math.floor(Math.random() * 3) + 1;
       return(Cmpnumber);
     }
 
