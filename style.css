@@ -44,7 +44,7 @@ body {
 }
 
 
-.scores {
+.scores, .bth-options {
     display: flex;
     justify-content: space-between;
     padding: 0 280px;
@@ -55,4 +55,24 @@ body {
     font-size: 44px;
 }
 
+.play-again {
+    color: black;
+    background-color: grey;
+    border: 8px solid rgb(94, 93, 93);
+    font-size: 44px;
+    border-radius: 16px;
+}
+
 /* scoreboard/ rules*/
+
+.ur-options, .cmp-options {
+    display: flex; 
+    flex-direction: column;
+}
+
+
+img {
+    height: 180px;
+    width: auto;
+    margin-bottom: 48px;
+}
